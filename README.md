@@ -22,7 +22,7 @@ The notebook is structured as follows:
 ## Importing  Data
 - The data has been obtained from https://amazon-reviews-2023.github.io/ and in jsonl format. An efficient format for storing data that is unstructured or produced over time.
 
-- It contains a list of books sold in Amazon. The original dataset contains 4 million rows, from 1996 to 2023. We will trim it to the most recent 500k to make it easier to work with.
+- It contains a list of books sold in Amazon. The original dataset contains 4 million rows, from 1996 to 2023. We will trim it to the most recent 300k to make it easier to work with.
 
 The data contains following features/columns in the dataset.
 | Column Name | Description |
@@ -44,13 +44,13 @@ The data contains following features/columns in the dataset.
 ## Exploratory Data Analysis
 - The dataset contains 300000 rows and 13 columns.
     - Book ratings were on a scale of 1 to 5. Below is a table showing the rating of books with the corresponding count.
-| Rating | Count |
-|---|---|
-| 1 | 18798 |
-| 2 | 9954 |
-| 3 | 14855 |
-| 4 | 32038 |
-| 5 | 224355 |
+| Rating | Count  |
+|--------|--------|
+| 1      | 18,798 |
+| 2      | 9,954  |
+| 3      | 14,855 |
+| 4      | 32,038 |
+| 5      | 224,355|
 
 ## Data Preprocessing
 In this stage we dropped rows with duplicate book titles and also rows with null values. We renamed some of the columns: 'title_x' to 'title_rating', 'title_y' to 'title_book'.
@@ -65,40 +65,41 @@ In this stage we dropped rows with duplicate book titles and also rows with null
       - price
 - The price columns was cleaned by filling null values with the mean price. Also converted to float data type.
 - 'main_category' did not accurately give the book categorys thus being dropped. Below are the categories
-| Main Category | Count |
-|---|---|
-| Books                       | 247285 |
-| Buy a Kindle                 | 44247 |
-| Audible Audiobooks            | 8214 |
-| Others                        | 204 |  |  
-|- Toys & Games                | 29 |
-|  - Amazon Home                     | 14 |
-|  - Office Products                  | 7 |
-|  - Musical Instruments              | 6 |
-|  - Arts, Crafts & Sewing            | 2 |
-|  - AMAZON FASHION                   | 1 |
-|  - Tools & Home Improvement         | 1 |
-|  - Industrial & Scientific          | 1 |
+
+| Main Category               | Count  |
+|-----------------------------|--------|
+| Books                       | 247,285|
+| Buy a Kindle                | 44,247 |
+| Audible Audiobooks          | 8,214  |
+| Others                      | 204    |
+| Toys & Games                | 29     |
+| Amazon Home                 | 14     |
+| Office Products             | 7      |
+| Musical Instruments         | 6      |
+| Arts, Crafts & Sewing       | 2      |
+| AMAZON FASHION              | 1      |
+| Tools & Home Improvement    | 1      |
+| Industrial & Scientific     | 1      |
 
 - 'title_x' column was renamed to 'title_rating' and 'title_y' to 'title_book'. The values were converted to lowercase and all punctuations removed. The values were tokenized and stopwords removed.
 - The top 15 common words in 'tokenized_title_rating'are:
 
-| Word | Count |
-|---|---|
-| book | 51383 |
-| great | 37020 |
-| read | 23177 |
-| good | 17009 |
-| love | 12440 |
-| story | 11124 |
-| fun | 7544 |
-| excellent | 6652 |
-| amazing | 6502 |
-| beautiful | 5817 |
-| best | 4913 |
-| series | 4907 |
-| cute | 4660 |
-| loved | 4636 |
+| Word      | Count  |
+|-----------|--------|
+| book      | 51,383 |
+| great     | 37,020 |
+| read      | 23,177 |
+| good      | 17,009 |
+| love      | 12,440 |
+| story     | 11,124 |
+| fun       | 7,544  |
+| excellent | 6,652  |
+| amazing   | 6,502  |
+| beautiful | 5,817  |
+| best      | 4,913  |
+| series    | 4,907  |
+| cute      | 4,660  |
+| loved     | 4,636  |
 
 
 ## Model Building
@@ -118,18 +119,18 @@ Multinormial Naive Bayes
 SVM
 
 | Class Label | Precision | Recall | F1-Score | Support |
-|---|---|---|---|---|
-| 0 | 0.80 | 0.46 | 0.59 | 8810 |
-| 1 | 0.91 | 0.98 | 0.95 | 51190 |
-| (Total) | **0.90** | **0.90** | **0.89** | 60000 |
+|-------------|-----------|--------|----------|---------|
+| 0           | 0.80      | 0.46   | 0.59     | 8,810   |
+| 1           | 0.91      | 0.98   | 0.95     | 51,190  |
+| (Total)     | **0.90**  | **0.90** | **0.89** | 60,000 |
 
 Random Forest
 
 | Class Label | Precision | Recall | F1-Score | Support |
-|---|---|---|---|---|
-| 0 | 0.77 | 0.54 | 0.63 | 8810 |
-| 1 | 0.92 | 0.97 | 0.95 | 51190 |
-| (Total) | **0.90** | **0.91** | **0.90** | 60000 |
+|-------------|-----------|--------|----------|---------|
+| 0           | 0.77      | 0.54   | 0.63     | 8,810   |
+| 1           | 0.92      | 0.97   | 0.95     | 51,190  |
+| (Total)     | **0.90**  | **0.91** | **0.90** | 60,000 |
 
 - All three classification models (Multinomial Naive Bayes, SVM, and Random Forest) achieved high accuracy (around 90%) in sentiment analysis.
 - Multinomial Naive Baye has a slight edge in identifying positive reviews with a recall of 0.98, but it struggles more with negative reviews  with a recall of 0.44. SVM and Random Forest show similar performance generally. They perform well in identifying positive reviews and slightly better than Naive Bayes on negative reviews; recall around 0.54-0.46.
@@ -147,7 +148,7 @@ This approach recommends books based on the lemmatized_title_rating text.
   - Recommends the top 5 books with similar keywords to a user's preferred book.
 
 - Using DBSCAN Clustering
-![DBSCAN Clustering](C:\Users\Hp\OneDrive\Files\Moringa School\Python classes\Phase 5 (Capstone)\Images\DBSCAN.png)
+![DBSCAN Clustering](Images/DBSCAN.png)
 
 ## Conclusion
 - From the plot we see some books are isolated. This may mean:
