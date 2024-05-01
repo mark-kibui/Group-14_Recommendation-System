@@ -44,6 +44,7 @@ The data contains following features/columns in the dataset.
 ## Exploratory Data Analysis
 - The dataset contains 300000 rows and 13 columns.
     - Book ratings were on a scale of 1 to 5. Below is a table showing the rating of books with the corresponding count.
+
 | Rating | Count  |
 |--------|--------|
 | 1      | 18,798 |
@@ -148,6 +149,7 @@ This approach recommends books based on the lemmatized_title_rating text.
   - Recommends the top 5 books with similar keywords to a user's preferred book.
 
 - Using DBSCAN Clustering
+
 ![DBSCAN Clustering](Images/DBSCAN.png)
 
 ## Conclusion
