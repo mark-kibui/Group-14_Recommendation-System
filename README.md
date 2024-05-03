@@ -1,6 +1,5 @@
 # Book Review Analysis and Recommendation System
 
-![](https://github.com/mark-kibui/Group-14_Recommendation-System/blob/main/Images/Content%20based%20recommendaiation.png)
 
 ## Business Understanding
 
@@ -150,6 +149,15 @@ Random Forest
 - Naive Bayes: The curve for Naive Bayes has an AUC (Area Under the Curve) of 0.90, which indicates a high level of performance in distinguishing between the positive and negative classes.
 - SVM has an AUC of 0.51, suggesting that it performs only slightly better than random guessing.
 - RandomForest: The RandomForest curve has an AUC of 0.89, showing good performance, though not as high as Naive Bayes.
+
+#### Content based filtering recommendation system
+  - We created a TF-IDF matrix from the lemmatized text.
+  - We then defined a function to get recommendations for a given book title.
+
+This approach recommended books based on the lemmatized_title_rating text
+  - Calculated TF-IDF vectors for "lemmatized_title_rating". It recommended books with the highest cosine similarity to a user's preferred book.
+  
+![](https://github.com/mark-kibui/Group-14_Recommendation-System/blob/main/Images/Content%20based%20recommendaiation.png)
 
 #### Cosine similarity
 - Recommendation of books based on **cosine similarity** between a given book title and other books in a TF-IDF matrix. It retrieves the 5-top most similar books and returns their titles.
