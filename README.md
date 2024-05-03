@@ -54,8 +54,8 @@ The data contains following features/columns in the dataset.
 | 5      | 224,355|
 
 ## Data Preprocessing
-In this stage we dropped rows with duplicate book titles and also rows with null values. We renamed some of the columns: 'title_x' to 'title_rating', 'title_y' to 'title_book'.
-- We eventually dropped columns that were not necessary for the modelling and ended up having 137725 row and 6 columns.
+In this stage we dropped rows with duplicate book titles and also rows with null values. We renamed some of the columns: 'title_x' to 'title_rating', 'title_y' to 'title_book' and duplicate book title-rows dropped.
+- We eventually dropped columns that were not necessary for the modelling and ended up having 156087 row and 6 columns.
 
       - rating
       - title_rating
@@ -63,7 +63,7 @@ In this stage we dropped rows with duplicate book titles and also rows with null
       - user_id
       - verified_purchase
       - title_book
-      - price
+ 
 - The price columns was cleaned by filling null values with the mean price. Also converted to float data type.
 - 'main_category' did not accurately give the book categorys thus being dropped. Below are the categories
 
@@ -83,91 +83,93 @@ In this stage we dropped rows with duplicate book titles and also rows with null
 | Industrial & Scientific     | 1      |
 
 - 'title_x' column was renamed to 'title_rating' and 'title_y' to 'title_book'. The values were converted to lowercase and all punctuations removed. The values were tokenized and stopwords removed.
-- The top 15 common words in 'tokenized_title_rating'are:
+- The top 10 common words in 'tokenized_title_rating'are:
 
 | Word      | Count  |
 |-----------|--------|
-| book      | 51,383 |
-| great     | 37,020 |
-| read      | 23,177 |
-| good      | 17,009 |
-| love      | 12,440 |
-| story     | 11,124 |
-| fun       | 7,544  |
-| excellent | 6,652  |
-| amazing   | 6,502  |
-| beautiful | 5,817  |
-| best      | 4,913  |
-| series    | 4,907  |
-| cute      | 4,660  |
-| loved     | 4,636  |
+| great     | 19,943 |
+| read      | 10,661 |
+| good      | 9,299  |
+| love      | 6,119  |
+| excellent | 3,931  |
+| fun       | 3,845  |
+| beautiful | 6,502  |
+| amazing   | 2,875  |
+| cute      | 2,577  |
+| series    | 2,376  |
 
 
 ## Model Building
-- We started with sentiment analysis. The goal was to understand the sentiment expressed in the review text (positive or negative). The sentiment analysis here included algorithms involving Multinomial Naive Bayes analysis, Support Vector Machines (SVM) and Random Forest. We used the precision, recall, f1-score & support to compare their performance.
+- We started with sentiment analysis. The goal was to understand the sentiment expressed in the review text. The sentiment analysis here included Multinomial Naive Bayes, Support Vector Machines (SVM) and Random Forest. We proceeded to building a hybrid recommendation system using the cosine similarity and Multinomial Naive Bayes
 
 ### Evaluation
 - Below is assessment
 
 Multinormial Naive Bayes
 
-| Class Label | Precision | Recall | F1-Score | Support |
-|---|---|---|---|---|
-| 0 | 0.83 | 0.44 | 0.58 | 8810 |
-| 1 | 0.91 | 0.98 | 0.95 | 51190 |
-| (Total) | **0.90** | **0.91** | **0.89** | 60000 |
+| Class | Precision | Recall | F1-score | Support |
+|-------|-----------|--------|----------|---------|
+| 0     | 0.83      | 0.45   | 0.58     | 4926    |
+| 1     | 0.90      | 0.98   | 0.94     | 26292   |
+|       |           |        |          |         |
+| **Accuracy** |           |        | **0.90**    | **31218**   |
+| **Macro avg** | **0.87**      | **0.72**   | **0.76**    | **31218**   |
+| **Weighted avg** | **0.89**      | **0.90**   | **0.89**    | **31218**   |
+
 
 SVM
 
-| Class Label | Precision | Recall | F1-Score | Support |
-|-------------|-----------|--------|----------|---------|
-| 0           | 0.80      | 0.46   | 0.59     | 8,810   |
-| 1           | 0.91      | 0.98   | 0.95     | 51,190  |
-| (Total)     | **0.90**  | **0.90** | **0.89** | 60,000 |
+| Class | Precision | Recall | F1-score | Support |
+|-------|-----------|--------|----------|---------|
+| 0     | 0.79      | 0.50   | 0.62     | 4926    |
+| 1     | 0.91      | 0.98   | 0.94     | 26292   |
+|       |           |        |          |         |
+| **Accuracy** |           |        | **0.90**    | **31218**   |
+| **Macro avg** | **0.85**      | **0.74**   | **0.78**    | **31218**   |
+| **Weighted avg** | **0.89**      | **0.90**   | **0.89**    | **31218**   |
 
 Random Forest
 
-| Class Label | Precision | Recall | F1-Score | Support |
-|-------------|-----------|--------|----------|---------|
-| 0           | 0.77      | 0.54   | 0.63     | 8,810   |
-| 1           | 0.92      | 0.97   | 0.95     | 51,190  |
-| (Total)     | **0.90**  | **0.91** | **0.90** | 60,000 |
+| Class | Precision | Recall | F1-score | Support |
+|-------|-----------|--------|----------|---------|
+| 0     | 0.95      | 0.09   | 0.16     | 24700   |
+| 1     | 0.85      | 1.00   | 0.92     | 131387  |
+|       |           |        |          |         |
+| **Accuracy** |           |        | **0.86**    | **156087**  |
+| **Macro avg** | **0.90**      | **0.54**   | **0.54**    | **156087**  |
+| **Weighted avg** | **0.87**      | **0.86**   | **0.80**    | **156087**  |
 
-- All three classification models (Multinomial Naive Bayes, SVM, and Random Forest) achieved high accuracy (around 90%) in sentiment analysis.
-- Multinomial Naive Baye has a slight edge in identifying positive reviews with a recall of 0.98, but it struggles more with negative reviews  with a recall of 0.44. SVM and Random Forest show similar performance generally. They perform well in identifying positive reviews and slightly better than Naive Bayes on negative reviews; recall around 0.54-0.46.
-- Naive Bayes might be slightly better at capturing positive sentiment, while SVM and Random Forest offer a more balanced performance between positive and negative reviews.
+- Multinomial Naive Baye has a slight edge in identifying positive reviews with a recall of 0.98, but it struggles more with negative reviews  with a recall of 0.45.
+- Multinomial Naive Bayes was better at capturing positive sentiment, while SVM and Random Forest offer a more balanced performance between positive and negative reviews.
+- We compared the three classifiers with ROC curve but using One vs Rest (OvR) method. This method compares one class with others by reducing the multiclass classification to multiple binary classification.
 
-### Recommendation System
-- **Build the content-based recommendation system.**
-  - We created a TF-IDF matrix from the lemmatized text.
-  - Compute cosine similarity between items based on their TF-IDF vectors.
-  - Defined a function to get recommendations for a given book title.
+![ROC Curve](Images/ROC Curve.png)
 
-This approach recommends books based on the lemmatized_title_rating text.
-  - Calculates TF-IDF vectors for "lemmatized_title_rating". Recommends books with the highest cosine similarity to a user's preferred book.
-  - Keyword matching: Extract keywords from "lemmatized_title_rating".
-  - Recommends the top 5 books with similar keywords to a user's preferred book.
+- Naive Bayes: The curve for Naive Bayes has an AUC (Area Under the Curve) of 0.90, which indicates a high level of performance in distinguishing between the positive and negative classes.
+- SVM has an AUC of 0.51, suggesting that it performs only slightly better than random guessing.
+- RandomForest: The RandomForest curve has an AUC of 0.89, showing good performance, though not as high as Naive Bayes.
 
-- Using DBSCAN Clustering
+#### Cosine similarity
+- Recommendation of books based on **cosine similarity** between a given book title and other books in a TF-IDF matrix. It retrieves the 5-top most similar books and returns their titles.
 
-![DBSCAN Clustering](Images/DBSCAN.png)
+####  Hybrid Recommendation System
+- Multinomial Naive Bayes is better for short texts as in our case and there more suitable for the hybrid recommendation system. We will use it with the cosine similarity to have a more robust recommendation system for books.
 
-## Conclusion
-- From the plot we see some books are isolated. This may mean:
-  - The book may have unique content that sets it apart from others, leading to distinct patterns in its reviews
-  - The reviews for the book might be highly diverse, making it difficult for the algorithm to place it within a specific cluster of similar reviews.
-  - There may not be enough review data for the book, resulting in sparse feature representation and subsequent isolation in the clustering process.
-- Some of the challenges that are like to affect the model performance are:
-  - Semantic ambiguity, where words can have multiple meaninings
-  - High dimensionality. This was a major computational challenge during for the algorithims and also for visualizations.
 
-## Recommendations
-Based on the DBSCAN clustering analysis of book reviews, here are some recommendations for further exploration:
+# Conclusion
+- We employed Multinomial Naive Bayes and cosine similarity to measure the closeness of books in the feature space. This combination allowed us to capitalize on the strengths of both methods, resulting robust recommendations.
 
-  1. Examine the outlier books to understand what makes them unique. They could be books with unusual themes that might interest a specific audience.
-  2. Combine the clustering results with other book metadata like genre and author to create a more comprehensive recommendation system.
-  3. More time to have tune the algorithms to effectively and efficiently perform given the computational challenges
-  
+# Recommendations
+Some recommendations based on the  the finals result and some of the challenges encountered:
+  - Consider refinin the model more for even better recommendations.
+  - Enrich the data with more information about the books and even users' profiles
+  - Implement a feedback loop where usres can also give feedback on the recommendations they get.
+
+- Jawa, Vibhu. 2021. "Accelerating TF-IDF for Natural Language Processing with Dask and RAPIDS." RAPIDS AI. https://medium.com/rapids-ai/accelerating-tf-idf-for-natural-language-processing-with-dask-and-rapids-6f6e416429df. Accessed April 27, 2024.
+
+- Scribendi Media. "How to Get Reviews for Your Book on Amazon." Scribendi Media, Dec. 2019. Image of screenshot from Amazon app with a 5-star review. Retrieved April 27, 2024, from https://scribemedia.com/wp-content/uploads/2019/12/How-To-Get-Reviews-For-Your-Book-On-Amazon-1024x594.jpg
+
+
 ### Contributors
 - Jacqueline Chepkwony
 - Mark Kuria
