@@ -1,5 +1,7 @@
 # Book Review Analysis and Recommendation System
 
+![](https://github.com/mark-kibui/Group-14_Recommendation-System/blob/main/Images/Content%20based%20recommendaiation.png)
+
 ## Business Understanding
 
 The days of customers walking into a shop to buy what they need/want are long behind us and worse still if these are items are not basic needs. More and more clients prefer to make purchases from the comfort of their home. The goods that a retailer is able to market online is limitless however customers easily get tired of scrolling though an endless catalogue of items for sale.
@@ -143,7 +145,7 @@ Random Forest
 - Multinomial Naive Bayes was better at capturing positive sentiment, while SVM and Random Forest offer a more balanced performance between positive and negative reviews.
 - We compared the three classifiers with ROC curve but using One vs Rest (OvR) method. This method compares one class with others by reducing the multiclass classification to multiple binary classification.
 
-![ROC Curve](Images/ROC Curve.png)
+![](https://github.com/mark-kibui/Group-14_Recommendation-System/blob/main/Images/ROC%20Curve.png)
 
 - Naive Bayes: The curve for Naive Bayes has an AUC (Area Under the Curve) of 0.90, which indicates a high level of performance in distinguishing between the positive and negative classes.
 - SVM has an AUC of 0.51, suggesting that it performs only slightly better than random guessing.
@@ -165,11 +167,6 @@ Some recommendations based on the  the finals result and some of the challenges 
   - Enrich the data with more information about the books and even users' profiles
   - Implement a feedback loop where usres can also give feedback on the recommendations they get.
 
-- Jawa, Vibhu. 2021. "Accelerating TF-IDF for Natural Language Processing with Dask and RAPIDS." RAPIDS AI. https://medium.com/rapids-ai/accelerating-tf-idf-for-natural-language-processing-with-dask-and-rapids-6f6e416429df. Accessed April 27, 2024.
-
-- Scribendi Media. "How to Get Reviews for Your Book on Amazon." Scribendi Media, Dec. 2019. Image of screenshot from Amazon app with a 5-star review. Retrieved April 27, 2024, from https://scribemedia.com/wp-content/uploads/2019/12/How-To-Get-Reviews-For-Your-Book-On-Amazon-1024x594.jpg
-
-
 ### Contributors
 - Jacqueline Chepkwony
 - Mark Kuria
@@ -177,3 +174,7 @@ Some recommendations based on the  the finals result and some of the challenges 
 - Nicholas Njubi
 - Johnmark Kibui
 
+### References
+- Jawa, Vibhu. 2021. "Accelerating TF-IDF for Natural Language Processing with Dask and RAPIDS." RAPIDS AI. https://medium.com/rapids-ai/accelerating-tf-idf-for-natural-language-processing-with-dask-and-rapids-6f6e416429df. Accessed April 27, 2024.
+
+- Scribendi Media. "How to Get Reviews for Your Book on Amazon." Scribendi Media, Dec. 2019. Image of screenshot from Amazon app with a 5-star review. Retrieved April 27, 2024, from https://scribemedia.com/wp-content/uploads/2019/12/How-To-Get-Reviews-For-Your-Book-On-Amazon-1024x594.jpg
